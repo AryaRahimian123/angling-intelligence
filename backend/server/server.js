@@ -12,6 +12,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Angling Intelligence API is running");
+});
+
 app.post("/api/nearby-waters", async (req, res) => {
   try {
     const { location } = req.body;
