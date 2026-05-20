@@ -1,77 +1,105 @@
 # Angling Intelligence
 
-Angling Intelligence is a full stack web app for checking fishing conditions around Ontario. Users can search a location, find nearby lakes or rivers, check weather and environmental conditions, view species recommendations, and get fishing tips using Gemini.
+Angling Intelligence is a full-stack web app for discovering fishing waters across Ontario. Users can enter an Ontario city or town, find nearby lakes and rivers, view current weather conditions, and explore species-level fishing recommendations designed to support better first casts.
 
-## Key Features
+## Live Demo
 
-- Search Ontario locations and find nearby fishing waters
-- View water details such as distance, region, type, accessibility, and pressure
-- Check current weather and environmental conditions
-- Browse species-specific fishing recommendations
-- Generate short fishing tips with the Gemini API
-- Use fallback tips when no Gemini API key is available
-- Work with a curated Ontario water and fish species dataset
+Live Demo: https://angling-intelligence.vercel.app/
 
-## Technologies Used
 
-**Frontend**
+
+## Features
+
+- Search by Ontario city or town
+- Find nearby lakes, rivers, and fishing waters
+- View distance, region, water type, accessibility, pressure level, and species count
+- Explore water detail pages with weather and species recommendations
+- Open species cards and dropdowns for more targeted fishing guidance
+- Use a fish activity and scoring system based on conditions and species behavior
+- Pull current weather data through Open-Meteo
+- Generate optional fishing tips with Gemini through `@google/genai`
+- Handle invalid or non-Ontario locations cleanly
+- Responsive underwater-themed frontend with fish, weeds, bubbles, light rays, and a custom logo
+
+## Tech Stack
+
+### Frontend
 
 - React
 - Vite
-- JavaScript
-- CSS
+- Tailwind-style utility classes
+- Framer Motion
+- Lucide React
 
-**Backend**
+### Backend
 
 - Node.js
 - Express
-- Gemini API
-- Weather/environmental APIs
+- CORS
+- dotenv
+- Open-Meteo geocoding and weather APIs
+- Gemini API through `@google/genai`
 
-## Screenshots
+## Architecture Overview
 
-![Landing page](./assets/screenshots/landing.png)
+The project is split into two deployable apps:
 
-![Search results](./assets/screenshots/results.png)
+```txt
+/frontend   React + Vite client deployed on Vercel
+/backend    Node.js + Express API deployed on Render
+```
 
-![Water intelligence view](./assets/screenshots/water-intelligence.png)
+The frontend calls the backend using `VITE_API_BASE_URL` in production. Local development can still use the Vite proxy for `/api` routes when configured for the development server.
 
-![Species recommendations](./assets/screenshots/species.png)
+The backend owns location validation, water lookup logic, weather integration, species scoring, and optional Gemini-generated fishing tips. Geocoding is intentionally Ontario-focused and rejects locations outside Ontario, Canada.
 
-![Fishing tip using Gemini](./assets/screenshots/ai-tip.png)
+## API Overview
 
-## My Contributions
+### `GET /`
 
-- Worked on the overall full stack structure of the app
-- Built React pages for searching, viewing results, and browsing water details
-- Created Express API routes for location search, weather data, water data, and AI tips
-- Helped build the recommendation logic for matching species with current conditions
-- Integrated Gemini API support with a fallback response when an API key is not set
-- Organized the Ontario water and fish species data used by the app
+Health check route for deployment testing.
 
-## Setup
+Returns:
+
+```txt
+Angling Intelligence API is running
+```
+
+### `POST /api/nearby-waters`
+
+Accepts an Ontario city or town and returns nearby fishing waters, location details, and current weather.
+
+### `GET /api/water/:id`
+
+Returns detail data for a specific waterbody, including species recommendations and current conditions.
+
+### `POST /api/fish-tip`
+
+Returns a short fishing tip using Gemini when available, with fallback tips when the API key is not configured or the AI request fails.
+
+## Local Setup
+
+Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/AryaRahimian123/angling-intelligence.git
 cd Angling-Intelligence-Arya
+```
 
+Install backend dependencies:
+
+```bash
 cd backend
 npm install
+```
 
+Install frontend dependencies:
+
+```bash
 cd ../frontend
 npm install
 ```
 
-Create a `.env` file in `backend`:
-
-```env
-PORT=3000
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-`GEMINI_API_KEY` is optional. Without it, the app uses fallback fishing tips.
-
-## Running Locally
 
 Start the backend:
 
@@ -87,18 +115,43 @@ cd frontend
 npm run dev
 ```
 
-Frontend:
+Default local URLs:
 
 ```txt
-http://localhost:5173
+Frontend: http://localhost:5173
+Backend:  http://localhost:3000
 ```
 
-Backend:
+## Deployment Notes
 
-```txt
-http://localhost:3000
-```
+- Frontend is deployed separately on Vercel.
+- Backend is deployed separately on Render.
+- The frontend uses `VITE_API_BASE_URL` to call the deployed backend.
+- The backend uses `process.env.PORT || 3000` for local and hosted environments.
+- The backend health check route can be used to verify Render deployment status.
+- API keys and environment-specific values should be configured through the hosting provider, not committed to the repository.
 
-## Project Context
+## Technical Highlights
 
-This project started during a hackathon and was later cleaned up so the code, README, and overall flow better reflect the finished app.
+- Full-stack production architecture with separate frontend and backend deployments
+- Environment-based API configuration for local and production builds
+- Ontario-only geocoding validation using Open-Meteo location metadata
+- Weather-aware species scoring and recommendation logic
+- Graceful fallback behavior when Gemini is unavailable
+- User-focused error handling for invalid or unsupported locations
+- Responsive, polished UI with a custom underwater visual direction
+- Backend health check route for deployment testing
+
+## Future Improvements
+
+- Ontario fish stocking data integration
+- Improved species seasonality logic
+- More Ontario waterbody data
+- Better fish image and illustration consistency
+- Caching repeated weather and search requests
+- More detailed mobile polish
+- Optional saved waters or trip planning features
+
+## Author
+
+Built by Arya Rahimian.
