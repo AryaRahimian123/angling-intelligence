@@ -57,7 +57,7 @@ function getBestOntarioResult(results) {
   });
 
   if (ontarioResults.length === 0) {
-    return results[0];
+    throw new Error("No Ontario location found.");
   }
 
   ontarioResults.sort((a, b) => {

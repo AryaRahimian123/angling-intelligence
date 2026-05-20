@@ -3,12 +3,25 @@ import { MapPin, Search } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { memo } from 'react'
 
+const EMPTY_LOCATION_MESSAGE = 'Please enter an Ontario city or town.'
+
 function SearchBar({ onSearch, isLoading, error }) {
-  const [location, setLocation] = useState('Guelph, ON')
+  const [location, setLocation] = useState('')
+  const [validationError, setValidationError] = useState('')
+  const displayError = validationError || error
 
   function handleSubmit(event) {
     event.preventDefault()
-    onSearch(location)
+
+    const nextLocation = location.trim()
+
+    if (!nextLocation) {
+      setValidationError(EMPTY_LOCATION_MESSAGE)
+      return
+    }
+
+    setValidationError('')
+    onSearch(nextLocation)
   }
 
   return (
@@ -20,35 +33,38 @@ function SearchBar({ onSearch, isLoading, error }) {
     >
       <form
         onSubmit={handleSubmit}
-        className="flex w-full items-center gap-3 rounded-[2rem] border border-white/15 bg-white/[0.12] p-2 shadow-lg shadow-black/20 backdrop-blur-sm transition-colors focus-within:border-cyan-200/45"
+        className="flex w-full items-center gap-3 rounded-[2rem] border border-cyan-50/25 bg-slate-950/34 p-2 shadow-2xl shadow-slate-950/30 backdrop-blur-md transition-colors focus-within:border-amber-100/55 focus-within:bg-slate-950/42"
       >
-        <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-cyan-300/15 text-cyan-100 sm:h-14 sm:w-14">
+        <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-emerald-400/18 text-cyan-50 ring-1 ring-cyan-50/16 sm:h-14 sm:w-14">
           <MapPin className="h-5 w-5" />
         </div>
         <input
           value={location}
-          onChange={(event) => setLocation(event.target.value)}
-          aria-describedby={error ? 'location-search-error' : undefined}
-          aria-invalid={Boolean(error)}
+          onChange={(event) => {
+            setLocation(event.target.value)
+            setValidationError('')
+          }}
+          aria-describedby={displayError ? 'location-search-error' : undefined}
+          aria-invalid={Boolean(displayError)}
           aria-label="Ontario location"
-          placeholder="Search Ontario location"
-          className="min-w-0 flex-1 bg-transparent text-base font-medium text-white outline-none placeholder:text-white/45 sm:text-lg"
+          placeholder="Enter any Ontario city or town"
+          className="min-w-0 flex-1 bg-transparent text-base font-semibold text-stone-50 outline-none placeholder:text-cyan-50/56 sm:text-lg"
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-100 px-5 text-sm font-bold text-slate-950 shadow-md shadow-cyan-950/20 transition-transform hover:scale-[1.015] hover:bg-white disabled:cursor-not-allowed disabled:opacity-70 sm:h-14 sm:px-7"
+          className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-amber-100 px-5 text-sm font-black text-emerald-950 shadow-lg shadow-cyan-950/25 transition hover:scale-[1.015] hover:bg-stone-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-100 disabled:cursor-not-allowed disabled:opacity-70 sm:h-14 sm:px-7"
         >
           <Search className="h-4 w-4" />
           <span className="hidden sm:inline">{isLoading ? 'Searching' : 'Find water'}</span>
         </button>
       </form>
-      {error ? (
+      {displayError ? (
         <p
           id="location-search-error"
-          className="mt-3 rounded-2xl border border-rose-200/15 bg-rose-400/[0.07] px-4 py-3 text-sm font-semibold text-rose-50/86"
+          className="mt-3 rounded-2xl border border-rose-100/20 bg-rose-500/[0.10] px-4 py-3 text-sm font-semibold text-rose-50/90 backdrop-blur-sm"
         >
-          {error}
+          {displayError}
         </p>
       ) : null}
     </motion.div>

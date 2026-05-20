@@ -75,11 +75,11 @@ button:disabled {
 
 .water-sheen {
   background:
-    linear-gradient(180deg, transparent 0%, rgba(8, 19, 31, 0.18) 24%, rgba(8, 19, 31, 0.68) 100%),
+    linear-gradient(180deg, rgba(254, 240, 138, 0.06) 0%, rgba(14, 165, 233, 0.08) 18%, rgba(6, 78, 59, 0.16) 38%, rgba(8, 19, 31, 0.58) 100%),
     repeating-linear-gradient(
       178deg,
-      rgba(125, 211, 252, 0.08) 0,
-      rgba(125, 211, 252, 0.08) 1px,
+      rgba(165, 243, 252, 0.14) 0,
+      rgba(165, 243, 252, 0.14) 1px,
       transparent 1px,
       transparent 22px
     );
@@ -88,9 +88,9 @@ button:disabled {
 
 .mist-layer {
   background:
-    radial-gradient(ellipse at 18% 55%, rgba(226, 232, 240, 0.12), transparent 36%),
-    radial-gradient(ellipse at 62% 45%, rgba(165, 243, 252, 0.10), transparent 40%),
-    radial-gradient(ellipse at 84% 60%, rgba(226, 232, 240, 0.08), transparent 32%);
+    radial-gradient(ellipse at 18% 55%, rgba(254, 240, 138, 0.14), transparent 34%),
+    radial-gradient(ellipse at 62% 45%, rgba(165, 243, 252, 0.18), transparent 42%),
+    radial-gradient(ellipse at 84% 60%, rgba(52, 211, 153, 0.14), transparent 34%);
   animation: mistFloat 24s ease-in-out infinite alternate;
 }
 
@@ -103,20 +103,20 @@ button:disabled {
   contain: layout paint style;
   transform: translateZ(0);
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(186, 230, 253, 0.28), transparent 36%),
-    radial-gradient(ellipse at 18% 38%, rgba(20, 184, 166, 0.18), transparent 34%),
-    radial-gradient(ellipse at 86% 52%, rgba(14, 165, 233, 0.16), transparent 32%),
-    linear-gradient(180deg, rgba(14, 116, 144, 0.14), rgba(3, 7, 18, 0.44) 78%);
+    radial-gradient(ellipse at 50% 0%, rgba(224, 242, 254, 0.42), transparent 40%),
+    radial-gradient(ellipse at 18% 38%, rgba(16, 185, 129, 0.2), transparent 38%),
+    radial-gradient(ellipse at 86% 52%, rgba(34, 211, 238, 0.24), transparent 36%),
+    linear-gradient(180deg, rgba(14, 116, 144, 0.14), rgba(20, 184, 166, 0.16) 32%, rgba(4, 47, 46, 0.22) 48%, rgba(3, 7, 18, 0.38) 78%);
 }
 
 .bubble-field::before {
   position: absolute;
   inset: 0;
   content: '';
-  opacity: 0.52;
+  opacity: 0.72;
   background-image:
-    radial-gradient(circle, rgba(186, 230, 253, 0.38) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(94, 234, 212, 0.18) 0 1px, transparent 1.5px);
+    radial-gradient(circle, rgba(224, 242, 254, 0.48) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(125, 211, 252, 0.3) 0 1px, transparent 1.5px);
   background-position: 0 0, 42px 72px;
   background-size: 96px 148px, 132px 190px;
   animation: microbubbleDrift 34s linear infinite;
@@ -126,13 +126,14 @@ button:disabled {
   position: absolute;
   inset: -18% -10%;
   content: '';
-  opacity: 0.2;
+  opacity: 0.36;
   background:
     repeating-linear-gradient(
       105deg,
       transparent 0 42px,
-      rgba(186, 230, 253, 0.18) 44px 47px,
-      transparent 50px 118px
+      rgba(254, 240, 138, 0.16) 44px 46px,
+      rgba(165, 243, 252, 0.16) 48px 50px,
+      transparent 52px 118px
     );
   animation: causticSweep 22s ease-in-out infinite alternate;
 }
@@ -142,9 +143,9 @@ button:disabled {
   top: -12vh;
   width: 22vw;
   height: 78vh;
-  opacity: 0.3;
+  opacity: 0.42;
   transform-origin: top center;
-  background: linear-gradient(180deg, rgba(186, 230, 253, 0.52), transparent 74%);
+  background: linear-gradient(180deg, rgba(254, 240, 138, 0.42), rgba(250, 250, 249, 0.34) 22%, rgba(165, 243, 252, 0.2) 42%, transparent 78%);
   animation: lightRaySway 18s ease-in-out infinite alternate;
 }
 
@@ -156,7 +157,7 @@ button:disabled {
 .underwater-light-b {
   right: 18%;
   width: 18vw;
-  opacity: 0.2;
+  opacity: 0.3;
   animation-delay: -8s;
   transform: rotate(-12deg);
 }
@@ -164,7 +165,7 @@ button:disabled {
 .underwater-light-c {
   left: 48%;
   width: 14vw;
-  opacity: 0.17;
+  opacity: 0.26;
   animation-delay: -14s;
   transform: rotate(5deg);
 }
@@ -208,21 +209,34 @@ button:disabled {
   left: var(--school-x);
   top: var(--school-y);
   width: var(--school-size);
-  height: calc(var(--school-size) * 0.34);
-  border-radius: 55% 45% 48% 52%;
-  background: linear-gradient(90deg, rgba(4, 18, 28, 0.72), rgba(8, 47, 73, 0.48));
+  height: calc(var(--school-size) * 0.32);
+  border-radius: 58% 42% 48% 52%;
+  background: linear-gradient(90deg, rgba(6, 95, 70, 0.5), rgba(2, 8, 23, 0.8));
+  box-shadow: inset 0 1px 0 rgba(224, 242, 254, 0.12);
   transform: scale(var(--school-scale));
 }
 
 .school-fish::before {
   position: absolute;
   top: 18%;
-  right: -22%;
+  left: -22%;
   width: 36%;
   height: 64%;
   content: '';
-  clip-path: polygon(0 50%, 100% 0, 78% 50%, 100% 100%);
-  background: rgba(4, 18, 28, 0.58);
+  clip-path: polygon(100% 50%, 0 0, 22% 50%, 0 100%);
+  background: rgba(2, 8, 23, 0.58);
+}
+
+.school-fish::after {
+  position: absolute;
+  top: 7%;
+  left: 46%;
+  width: 18%;
+  height: 34%;
+  content: '';
+  border-radius: 100% 0 80% 0;
+  background: rgba(20, 184, 166, 0.28);
+  transform: rotate(18deg);
 }
 
 .fish-school.fish-left .school-fish {
@@ -232,8 +246,13 @@ button:disabled {
 .fish-silhouette > span {
   position: absolute;
   inset: 0;
-  border-radius: 55% 45% 48% 52%;
-  background: linear-gradient(90deg, rgba(2, 8, 23, 0.86), rgba(8, 47, 73, 0.62));
+  border-radius: 58% 42% 48% 52%;
+  background:
+    radial-gradient(ellipse at 78% 38%, rgba(254, 240, 138, 0.13), transparent 17%),
+    linear-gradient(90deg, rgba(6, 95, 70, 0.52), rgba(8, 47, 73, 0.62) 38%, rgba(2, 8, 23, 0.88));
+  box-shadow:
+    inset 0 1px 0 rgba(224, 242, 254, 0.14),
+    0 12px 26px rgba(2, 8, 23, 0.18);
 }
 
 .fish-silhouette > span::before,
@@ -244,21 +263,32 @@ button:disabled {
 
 .fish-silhouette > span::before {
   top: 18%;
-  right: -22%;
+  left: -22%;
   width: 36%;
   height: 64%;
-  clip-path: polygon(0 50%, 100% 0, 78% 50%, 100% 100%);
+  clip-path: polygon(100% 50%, 0 0, 22% 50%, 0 100%);
   background: rgba(2, 8, 23, 0.72);
 }
 
 .fish-silhouette > span::after {
-  top: -24%;
-  left: 42%;
+  top: -22%;
+  left: 44%;
   width: 21%;
   height: 42%;
   border-radius: 100% 0 80% 0;
-  background: rgba(2, 8, 23, 0.46);
+  background: rgba(13, 148, 136, 0.42);
   transform: rotate(18deg);
+}
+
+.fish-silhouette::after {
+  position: absolute;
+  right: 12%;
+  top: 42%;
+  width: 5%;
+  height: 10%;
+  content: '';
+  border-radius: 999px;
+  background: rgba(254, 240, 138, 0.32);
 }
 
 .fish-left {
@@ -293,29 +323,29 @@ button:disabled {
   border-radius: 999px;
   opacity: var(--bubble-opacity);
   background:
-    radial-gradient(circle at 31% 27%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.24) 20%, transparent 27%),
-    radial-gradient(circle at 64% 70%, rgba(125, 211, 252, 0.34), transparent 32%),
-    radial-gradient(circle at 50% 50%, rgba(186, 230, 253, 0.26), rgba(125, 211, 252, 0.12) 61%, transparent 72%);
-  border: 1px solid rgba(186, 230, 253, 0.32);
+    radial-gradient(circle at 31% 27%, rgba(250, 250, 249, 0.92), rgba(250, 250, 249, 0.24) 20%, transparent 27%),
+    radial-gradient(circle at 64% 70%, rgba(125, 211, 252, 0.36), transparent 32%),
+    radial-gradient(circle at 50% 50%, rgba(224, 242, 254, 0.28), rgba(125, 211, 252, 0.12) 61%, transparent 72%);
+  border: 1px solid rgba(224, 242, 254, 0.36);
   animation: bubbleRise var(--bubble-duration) linear var(--bubble-delay) infinite;
   will-change: transform, opacity;
 }
 
 .bubble-back {
-  border-color: rgba(186, 230, 253, 0.22);
+  border-color: rgba(224, 242, 254, 0.24);
 }
 
 .bubble-mid {
-  border-color: rgba(186, 230, 253, 0.38);
+  border-color: rgba(224, 242, 254, 0.42);
 }
 
 .bubble-front {
   z-index: 4;
   background:
     radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.24) 19%, transparent 27%),
-    radial-gradient(circle at 78% 76%, rgba(94, 234, 212, 0.22), transparent 34%),
-    radial-gradient(circle at 50% 50%, rgba(224, 242, 254, 0.2), rgba(125, 211, 252, 0.1) 62%, transparent 73%);
-  border-color: rgba(224, 242, 254, 0.48);
+    radial-gradient(circle at 78% 76%, rgba(187, 247, 208, 0.28), transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(254, 240, 138, 0.18), rgba(125, 211, 252, 0.12) 62%, transparent 73%);
+  border-color: rgba(250, 250, 249, 0.5);
 }
 
 .weed-bed {
@@ -331,19 +361,22 @@ button:disabled {
   inset: auto 0 0;
   height: 20vh;
   content: '';
-  background: linear-gradient(180deg, transparent, rgba(1, 10, 15, 0.64));
+  background: linear-gradient(180deg, transparent, rgba(1, 10, 15, 0.54));
 }
 
 .underwater-weed {
   position: absolute;
-  bottom: -4vh;
+  bottom: -3vh;
   left: var(--weed-left);
   width: var(--weed-width);
   height: var(--weed-height);
   opacity: var(--weed-opacity);
   transform-origin: bottom center;
-  border-radius: 999px 999px 0 0;
-  background: linear-gradient(180deg, rgba(45, 212, 191, 0.3), rgba(6, 78, 59, 0.56) 55%, rgba(2, 44, 34, 0.78));
+  border-radius: 80% 80% 0 0;
+  background:
+    linear-gradient(90deg, transparent 0 40%, rgba(240, 253, 244, 0.28) 48%, transparent 58%),
+    linear-gradient(180deg, rgba(110, 231, 183, 0.52), rgba(22, 163, 74, 0.7) 54%, rgba(2, 44, 34, 0.88));
+  filter: drop-shadow(0 10px 14px rgba(1, 10, 15, 0.18));
   animation: weedSway var(--weed-duration) ease-in-out var(--weed-delay) infinite alternate;
   will-change: transform;
 }
@@ -355,21 +388,22 @@ button:disabled {
   width: 72%;
   height: 82%;
   content: '';
-  border-radius: 999px 999px 0 0;
+  border-radius: 80% 80% 0 0;
   background: inherit;
-  opacity: 0.72;
+  opacity: 0.74;
   transform-origin: bottom center;
 }
 
 .underwater-weed::before {
   left: -64%;
-  transform: rotate(-13deg);
+  transform: rotate(-15deg);
 }
 
 .underwater-weed::after {
   right: -58%;
   height: 70%;
-  transform: rotate(16deg);
+  opacity: 0.68;
+  transform: rotate(18deg);
 }
 
 @keyframes waterDrift {
