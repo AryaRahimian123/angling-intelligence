@@ -12,7 +12,7 @@ function HeroSection({ onSearch, isLoading, searchError }) {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden bg-midnight px-5 py-28 sm:px-8"
+      className="relative flex min-h-screen items-center overflow-hidden bg-midnight px-5 pb-20 pt-28 sm:px-8 sm:pt-32"
     >
       <div
         className="absolute inset-0 scale-105 bg-cover bg-center opacity-60 saturate-150"
@@ -28,44 +28,28 @@ function HeroSection({ onSearch, isLoading, searchError }) {
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-midnight" />
 
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-6xl text-center"
+        className="relative z-10 mx-auto flex w-full max-w-5xl justify-center"
         initial="hidden"
         animate="show"
         transition={{ staggerChildren: 0.055 }}
       >
-        <motion.p
-          className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-cyan-50/90 drop-shadow-sm"
-          variants={fadeUp}
-          transition={{ duration: 0.32, ease: 'easeOut' }}
-        >
-          Ontario fishing intelligence
-        </motion.p>
-        <motion.h1
-          className="mx-auto max-w-5xl text-balance text-5xl font-black leading-[0.92] tracking-normal text-stone-50 drop-shadow-[0_5px_26px_rgba(2,8,23,0.55)] sm:text-7xl lg:text-8xl"
-          variants={fadeUp}
-          transition={{ duration: 0.38, ease: 'easeOut' }}
-        >
-          Angling Intelligence
-        </motion.h1>
-        <motion.p
-          className="mx-auto mt-7 max-w-2xl text-xl font-semibold text-stone-50/88 drop-shadow-sm sm:text-2xl"
-          variants={fadeUp}
-          transition={{ duration: 0.34, ease: 'easeOut' }}
-        >
-          Where are we fishing today?
-        </motion.p>
-        <motion.div
-          className="mx-auto mt-7 h-px w-80 bg-gradient-to-r from-transparent via-amber-100/65 to-cyan-100/0"
-          variants={{
-            hidden: { opacity: 0, scaleX: 0.7 },
-            show: { opacity: 1, scaleX: 1 },
-          }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-        />
-        <SearchBar onSearch={onSearch} isLoading={isLoading} error={searchError} />
-        <p className="mx-auto mt-5 max-w-xl text-sm font-semibold text-cyan-50/68 drop-shadow-sm">
-          Built for nearby Ontario waters, shifting weather, and better first casts.
-        </p>
+        <div className="w-full max-w-[42rem]">
+          <motion.h1
+            className="max-w-[40rem] text-balance text-4xl font-extrabold leading-tight tracking-normal text-stone-50 drop-shadow-[0_3px_18px_rgba(2,8,23,0.55)] sm:text-5xl lg:text-[3.35rem]"
+            variants={fadeUp}
+            transition={{ duration: 0.38, ease: 'easeOut' }}
+          >
+            Search Ontario fishing conditions
+          </motion.h1>
+          <motion.p
+            className="mt-4 max-w-[37rem] text-base font-medium leading-7 text-stone-50/86 drop-shadow-sm sm:text-lg"
+            variants={fadeUp}
+            transition={{ duration: 0.34, ease: 'easeOut' }}
+          >
+            Find nearby lakes and rivers, check today’s weather, and see which species are worth targeting.
+          </motion.p>
+          <SearchBar onSearch={onSearch} isLoading={isLoading} error={searchError} />
+        </div>
       </motion.div>
     </section>
   )

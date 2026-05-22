@@ -17,16 +17,7 @@ const item = {
 
 function NearbyWatersGrid({ waters, weather, location }) {
   return (
-    <section className="relative mx-auto max-w-6xl px-5 pt-12 sm:px-8 sm:pt-14">
-      <div className="mb-7 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.26em] text-cyan-100/60">Nearby waters</p>
-          <h2 className="mt-2 text-3xl font-black text-white sm:text-4xl">Choose your destination</h2>
-        </div>
-        <p className="max-w-md text-sm leading-6 text-white/55">
-          Pick the water that fits today&apos;s conditions, then explore the best species opportunities there.
-        </p>
-      </div>
+    <section className="relative mx-auto max-w-6xl px-5 pt-6 sm:px-8 sm:pt-8">
       <motion.div
         className="grid gap-4"
         variants={container}

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, Loader2, MapPinned, Waves } from 'lucide-react'
+import { ArrowLeft, Loader2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar.jsx'
 import NearbyWatersGrid from '../components/NearbyWatersGrid.jsx'
@@ -69,61 +69,36 @@ export default function ResultsPage() {
   }, [preloadedResults, requestedLocation, retryCount])
 
   const hasResults = useMemo(() => waters.length > 0 && weather, [waters, weather])
-  const nearestWater = waters[0]
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-midnight pb-20 text-mist">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(34,211,238,0.14),transparent_30rem),radial-gradient(circle_at_80%_14%,rgba(16,185,129,0.10),transparent_28rem),linear-gradient(180deg,#07131f_0%,#08131f_45%,#061722_100%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-cyan-100/[0.035] to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-[#183222]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(145deg,#0d2416_0%,#183222_24%,#23412a_48%,#6a9451_72%,#2f3f24_100%)] opacity-88" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.055] bg-[repeating-linear-gradient(92deg,rgba(244,239,228,0.22)_0,rgba(244,239,228,0.22)_1px,transparent_1px,transparent_7px)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#b8aa7a]/32" />
       <Navbar />
 
       <section className="relative mx-auto max-w-6xl px-5 pt-28 sm:px-8 sm:pt-32">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.07] px-4 py-2 text-sm font-semibold text-white/70 backdrop-blur-sm transition-colors hover:border-cyan-100/30 hover:text-white"
+          className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-white/72 transition-colors hover:border-cyan-100/30 hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
           New search
         </Link>
 
         <motion.div
-          className="mt-10 grid gap-8 lg:grid-cols-[1fr_18rem] lg:items-end"
+          className="mt-9 max-w-3xl"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
         >
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-100/62">
-              Nearby fishing intelligence
-            </p>
-            <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-6xl">
-              Waters near {location}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-white/62">
-              Choose the lake or reservoir you want to fish, then step into species-level intelligence.
-            </p>
-          </div>
-
-          {nearestWater ? (
-            <div className="rounded-3xl border border-white/10 bg-white/[0.055] p-4 text-white/72 shadow-sm">
-              <div className="flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-2xl bg-cyan-100/10 text-cyan-100">
-                  <MapPinned className="h-5 w-5" />
-                </span>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/42">Closest water</p>
-                  <p className="mt-1 font-bold text-white">{nearestWater.name}</p>
-                </div>
-              </div>
-              <div className="mt-4 flex items-center justify-between rounded-2xl bg-black/15 px-4 py-3 text-sm">
-                <span>{nearestWater.distanceKm} km away</span>
-                <span className="flex items-center gap-2 font-semibold text-emerald-100">
-                  <Waves className="h-4 w-4" />
-                  {waters.length} waters
-                </span>
-              </div>
-            </div>
-          ) : null}
+          <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+            Waters near <span className="text-[#e7dcc1]">{location}</span>
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-[#c9c0aa]/78 sm:text-lg">
+            Choose a water below to view <span className="text-[#d8c994]">species forecasts</span> and fishing details.
+          </p>
         </motion.div>
       </section>
 
