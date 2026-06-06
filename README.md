@@ -16,7 +16,7 @@ Live Demo: https://angling-intelligence.vercel.app/
 - Explore water detail pages with weather and species recommendations
 - Open species cards and dropdowns for more targeted fishing guidance
 - Use a fish activity and scoring system based on conditions and species behavior
-- Pull current weather data through Open-Meteo
+- Pull geocoding and current weather data through OpenWeather
 - Generate optional fishing tips with Gemini through `@google/genai`
 - Handle invalid or non-Ontario locations cleanly
 - Responsive underwater-themed frontend with fish, weeds, bubbles, light rays, and a custom logo
@@ -37,7 +37,7 @@ Live Demo: https://angling-intelligence.vercel.app/
 - Express
 - CORS
 - dotenv
-- Open-Meteo geocoding and weather APIs
+- OpenWeather geocoding and weather APIs
 - Gemini API through `@google/genai`
 
 ## Architecture Overview
@@ -100,6 +100,15 @@ cd ../frontend
 npm install
 ```
 
+Create a backend environment file:
+
+```bash
+cd ../backend
+cp .env.example .env
+```
+
+Set `OPENWEATHER_API_KEY` in `backend/.env` for local development and in Render for production.
+
 
 Start the backend:
 
@@ -135,7 +144,7 @@ Backend:  http://localhost:3000
 
 - Full-stack production architecture with separate frontend and backend deployments
 - Environment-based API configuration for local and production builds
-- Ontario-only geocoding validation using Open-Meteo location metadata
+- Ontario-only geocoding validation using OpenWeather location metadata
 - Weather-aware species scoring and recommendation logic
 - Graceful fallback behavior when Gemini is unavailable
 - User-focused error handling for invalid or unsupported locations

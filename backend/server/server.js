@@ -33,7 +33,8 @@ app.post("/api/nearby-waters", async (req, res) => {
 
     try {
       geocodedLocation = await geocodeLocation(location);
-    } catch {
+    } catch (error) {
+      console.error("Location geocoding failed:", error);
       return res.status(400).json({
         error: "Location not found",
       });
