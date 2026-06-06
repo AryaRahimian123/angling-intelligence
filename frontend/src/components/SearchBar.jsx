@@ -48,7 +48,7 @@ function SearchBar({ onSearch, isLoading, error }) {
           aria-invalid={Boolean(displayError)}
           aria-label="Ontario location"
           placeholder="Enter any Ontario city or town"
-          className="min-h-11 min-w-0 flex-1 rounded-md bg-slate-950/32 px-3 text-base font-semibold text-stone-50 outline-none placeholder:text-cyan-50/52 sm:bg-transparent sm:px-0"
+          className="mobile-search-input min-h-11 min-w-0 flex-1 rounded-md bg-slate-950/68 px-3 text-base font-semibold text-stone-50 outline-none placeholder:text-stone-300/70 focus-visible:ring-2 focus-visible:ring-amber-100/70 sm:bg-transparent sm:px-0"
         />
         <button
           type="submit"

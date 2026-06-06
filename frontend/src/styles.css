@@ -48,6 +48,36 @@ input {
   font: inherit;
 }
 
+.mobile-search-input {
+  color: #fafaf9;
+  -webkit-text-fill-color: #fafaf9;
+  caret-color: #fafaf9;
+}
+
+@media (max-width: 639px) {
+  .mobile-search-input {
+    /* Keep the mobile field dark enough for typed text over the landing hero. */
+    background-color: rgba(2, 6, 23, 0.68);
+  }
+}
+
+.mobile-search-input::placeholder {
+  color: rgba(214, 211, 209, 0.75);
+  -webkit-text-fill-color: rgba(214, 211, 209, 0.75);
+}
+
+.mobile-search-input:-webkit-autofill,
+.mobile-search-input:-webkit-autofill:hover,
+.mobile-search-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fafaf9;
+  box-shadow: 0 0 0 1000px rgba(2, 6, 23, 0.85) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.mobile-search-input:-webkit-autofill::first-line {
+  color: #fafaf9;
+}
+
 button {
   cursor: pointer;
 }
