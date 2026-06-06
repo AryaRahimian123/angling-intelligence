@@ -42,11 +42,19 @@ async function fetchGeocodingResults(location, count = 10) {
   url.searchParams.set("language", "en");
   url.searchParams.set("format", "json");
 
-  const response = await fetch(url);
+const response = await fetch(url)
 
-  if (!response.ok) {
-    throw new Error("Could not geocode location.");
-  }
+if (!response.ok) {
+  const errorText = await response.text()
+
+  console.error("Weather API Error:")
+  console.error("Status:", response.status)
+  console.error("Response:", errorText)
+
+  throw new Error(
+    `Could not get current weather. Status ${response.status}`
+  )
+}
 
   return response.json();
 }
