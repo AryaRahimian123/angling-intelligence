@@ -171,9 +171,27 @@ export async function getCurrentWeather(lat, lon) {
   );
   url.searchParams.set("timezone", "auto");
 
-  const response = await fetch(url);
+  console.info("Open-Meteo forecast URL:", url.toString());
+
+  let response;
+
+  try {
+    response = await fetch(url);
+  } catch (error) {
+    console.error("Open-Meteo forecast fetch network error:", error);
+    console.error("Open-Meteo forecast fetch network error message:", error.message);
+
+    throw new Error("Could not get current weather.");
+  }
 
   if (!response.ok) {
+    const errorText = await response.text();
+
+    console.error("Open-Meteo forecast API error:");
+    console.error("Status:", response.status);
+    console.error("Status text:", response.statusText);
+    console.error("Response body:", errorText);
+
     throw new Error("Could not get current weather.");
   }
 
