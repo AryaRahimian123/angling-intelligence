@@ -1,6 +1,8 @@
 const GEOCODING_API_URL = "https://api.openweathermap.org/geo/1.0/direct";
 const CURRENT_WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather";
 const KPH_PER_MPS = 3.6;
+const WEATHER_CACHE_DURATION_MS = 30 * 60 * 1000;
+const weatherCache = new Map();
 
 export async function geocodeLocation(location) {
   const cleanLocation = normalizeLocationText(location);
@@ -78,19 +80,67 @@ function normalizeLocationText(location) {
 }
 
 export async function getCurrentWeather(lat, lon) {
+  const cacheKey = getWeatherCacheKey(lat, lon);
+  const cachedEntry = weatherCache.get(cacheKey);
+  const cachedWeather = getFreshCachedWeather(cacheKey, cachedEntry);
+
+  if (cachedWeather) {
+    console.info("Weather cache hit", cacheKey);
+    return cachedWeather;
+  }
+
+  console.info("Weather cache miss", cacheKey);
+
   const url = new URL(CURRENT_WEATHER_API_URL);
   url.searchParams.set("lat", lat);
   url.searchParams.set("lon", lon);
   url.searchParams.set("units", "metric");
   url.searchParams.set("appid", getOpenWeatherApiKey());
 
-  const data = await fetchOpenWeatherJson(
-    url,
-    "OpenWeather current weather",
-    "Could not get current weather."
-  );
+  try {
+    const data = await fetchOpenWeatherJson(
+      url,
+      "OpenWeather current weather",
+      "Could not get current weather."
+    );
 
-  return mapOpenWeatherToCurrentWeather(data);
+    const weather = mapOpenWeatherToCurrentWeather(data);
+
+    weatherCache.set(cacheKey, {
+      weather,
+      cachedAt: Date.now(),
+    });
+
+    return weather;
+  } catch (error) {
+    if (cachedEntry) {
+      console.error("OpenWeather failed; returning expired cached weather:", error);
+      return cachedEntry.weather;
+    }
+
+    throw error;
+  }
+}
+
+function getWeatherCacheKey(lat, lon) {
+  // Weather cache keys round coordinates to 3 decimals so nearby repeated searches reuse one entry.
+  return `${Number(lat).toFixed(3)},${Number(lon).toFixed(3)}`;
+}
+
+function getFreshCachedWeather(cacheKey, cachedEntry) {
+  // Cache retrieval flow: read the entry first, then validate age before returning weather data.
+  if (!cachedEntry) {
+    return null;
+  }
+
+  const cacheAgeMs = Date.now() - cachedEntry.cachedAt;
+
+  // Cache expiration is time based; weather older than 30 minutes is kept only as a fallback.
+  if (cacheAgeMs >= WEATHER_CACHE_DURATION_MS) {
+    return null;
+  }
+
+  return cachedEntry.weather;
 }
 
 async function fetchOpenWeatherJson(url, label, genericErrorMessage) {
